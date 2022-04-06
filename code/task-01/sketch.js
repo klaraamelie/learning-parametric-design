@@ -1,9 +1,10 @@
 function preload(){
   // preload assets
+  
 }
 
 function setup() {
-  createCanvas(500,400);
+  //createCanvas(600, 400);
 }
 
 function draw() {
