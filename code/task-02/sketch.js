@@ -19,7 +19,7 @@ function setup() {
 }
 
 function draw() {
-  background(0);
+  background(200);
 
   fill(255);
 
@@ -37,7 +37,7 @@ function draw() {
 
   rect(
     (sketchWidth - smallWidth) / 2,
-    (sketchHight - smallight) / 2,
+    (sketchHight - smallHight) / 2,
     smallWidth,
     smallHeight
   );
