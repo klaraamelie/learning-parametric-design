@@ -1,44 +1,17 @@
-const sketchHeight = 400;
 const sketchWidth = 400;
-
-let boxWidth = 200;
-let boxHight = 200;
-
-let stringVariable = "Hello world";
-let intVariable = 1;
-let floatVariable = 1.5;
-let booleanValue = true; // false
-
-function preload() {
-  // preload assets
-}
+const sketchHeight = 400;
 
 function setup() {
-  createCanvas(sketchWidth, sketchHight);
-  console.log(sketchWidth);
+  createCanvas(sketchWidth, sketchHeight);
 }
 
 function draw() {
-  background(200);
+  background(20);
+  fill(55);
 
-  fill(255);
-
-  rect(
-    (sketchWidth - boxWidth) / 2,
-    (sketchHight - boxHight) / 2,
-    boxWidth,
-    boxHeight
-  );
-
-  const smallWidth = boxWidth * 0.5;
-  const smallHight = boxHight * 0.25;
-
-  fill("red");
-
-  rect(
-    (sketchWidth - smallWidth) / 2,
-    (sketchHight - smallHight) / 2,
-    smallWidth,
-    smallHeight
-  );
+  for (let y = 0; y < sketchHeight; y += random(2, 10)) {
+    const circleDiameter = random(5, 30);
+    circle(random(1, 400), random(1, 400), circleDiameter);
+    y += circleDiameter;
+  }
 }
