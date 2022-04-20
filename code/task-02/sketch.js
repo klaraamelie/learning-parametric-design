@@ -3,11 +3,13 @@ const sketchHeight = 400;
 
 function setup() {
   createCanvas(sketchWidth, sketchHeight);
+  frameRate(5);
 }
 
 function draw() {
-  background(20);
-  fill(55);
+  background(0, 0, 51);
+  fill("rgb(0,255,0)");
+  noStroke();
 
   for (let y = 0; y < sketchHeight; y += random(2, 10)) {
     const circleDiameter = random(5, 30);
