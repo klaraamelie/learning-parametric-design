@@ -8,7 +8,7 @@ let corner = 15;
 
 function draw() {
   background(210);
-  fill(100);
+  fill(100, 50);
   noStroke();
 
   for (let y = random(15, 320); y < 320; y += random(65, 300)) {

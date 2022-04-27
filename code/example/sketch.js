@@ -1,4 +1,4 @@
-function preload(){
+function preload() {
   // preload assets
 }
 
