@@ -27,6 +27,16 @@ function draw() {
   //ctx.translate(canvas.width / 2, canvas.height / 2);
   //ctx.fillStyle = "red";
   fill("pink");
+
   rect(150, 50, 150, 60);
+
+  circle(350, 80, 80);
+
+  beginShape();
+  vertex(50, 100);
+  vertex(200, 150);
+  vertex(40, 20);
+  vertex(0, 20);
+  endShape(CLOSE);
   strokeWheight(1);
 }
