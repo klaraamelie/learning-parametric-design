@@ -1,30 +1,33 @@
-function preload() {
-  // preload assets
-}
-
-//const sketchHeight = 400;
-//const sketchWidth = 400;
+const sketchWidth = 400;
+const sketchHeight = 400;
+// const angleDistance = 3;
+// const maxAngle = 180;
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(sketchWidth, sketchHeight);
 }
 
 function draw() {
-  background(200);
-  nofill();
-  stroke(0);
-  skrokeWeight();
+  //   for (let layer = 0; layer < 20; layer += 1) {
+  //     for (let angle = 0; angle < maxAngle; angle += angleDistance) {
+  //       // each layer the angle is offset
+  //       const rad = (Math.PI / 180) * (angle + layer * 2);
 
-  let radius = 0;
+  //       // we use the angle also as a radius in the polar function
+  //       // so the bigger the angle, the bigger the radius
+  //       const x = angle * cos(rad);
+  //       const y = angle * sin(rad);
+
+  //       // we also use the angle for the circle size
+  //       // growing angle, radius and size
+  //       circle(x + sketchWidth / 2, y + sketchHeight / 2, angle / 100);
+  //     }
+  //   }
+  //   noLoop();
+  // }
+
   beginShape();
-  for (let angle = 0; angle < 720; angle += 10) {
-    radius += 1;
-    const x = radius * cos((Math.PI / 180) * angle);
-    const y = radius * sin((Math.PI / 180) * angle);
-    vertex(x + 200, y + 200);
-  }
+  vertex(200, 200); // we need to add a startpoint
+  bezierVertex(150, 20, 30, 20, 40, 0);
   endShape();
-  //frameRate(5);
-
-  noLoop();
 }
