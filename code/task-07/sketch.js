@@ -1,69 +1,121 @@
-const sketchWidth = 400;
-const sketchHeight = 400;
+/* export SVG
+DDF 2018
+need to have p5.svg.js in project and in index.html
+see -https://github.com/zenozeng/p5.js-svg
+this will save an SVG file in your download folder
+*/
 
-const numPoints = 30;
+var cnv;
 
-// const angleDistance = 3;
-// const maxAngle = 180;
+var wid = 420; //2480;
+var hei = 594; //3508;
+
+var NB_FRAMES = 100;
+
+var frame_count = 0;
+
+function activation(t) {
+  return ((1 - cos(2 * PI * t)) / 2) ** 1;
+}
 
 function setup() {
-  createCanvas(sketchWidth, sketchHeight);
+  curSeed = 11;
+  noiseSeed(curSeed);
+  randomSeed(1);
+
+  createCanvas(wid, hei);
+  strokeWeight(1); // do 0.1 for laser
+  stroke(0); // red is good for laser
+  noFill(0);
+  //cnv.parent("canvas");
+
+  background(255);
+
+  for (var i = 0; i < NB; i++) {
+    Objects[i] = new object(i);
+  }
+  // better not to have a fill for laser
 }
 
-//function draw() {
-//   for (let layer = 0; layer < 20; layer += 1) {
-//     for (let angle = 0; angle < maxAngle; angle += angleDistance) {
-//       // each layer the angle is offset
-//       const rad = (Math.PI / 180) * (angle + layer * 2);
+function object(id) {
+  this.id = id;
 
-//       // we use the angle also as a radius in the polar function
-//       // so the bigger the angle, the bigger the radius
-//       const x = angle * cos(rad);
-//       const y = angle * sin(rad);
+  this.draw = function () {
+    var t = (frame_count % NB_FRAMES) / NB_FRAMES;
 
-//       // we also use the angle for the circle size
-//       // growing angle, radius and size
-//       circle(x + sketchWidth / 2, y + sketchHeight / 2, angle / 100);
-//     }
-//   }
-//   noLoop();
-// }
+    var x0 = lerp(0, wid, this.id / NB);
 
-// beginShape();
-// vertex(200, 200); // we need to add a startpoint
-// bezierVertex(150, 20, 30, 20, 40, 0);
-// endShape();
+    theta = PI / 2;
 
-/* We use velocity to modify how fast
-   the points move in the random directions.
-   Higher velocity faster moving.
-*/
-const velocity = 3;
+    var xx = x0;
+    var yy = 0;
 
-const points = [];
-for (let p = 0; p < numPoints; p += 1) {
-  points.push({
-    x: Math.random() * sketchWidth,
-    y: Math.random() * sketchHeight,
-    vx: Math.random() * velocity,
-    vy: Math.random() * velocity,
-  });
+    var Nt = 75;
+
+    var step = hei / Nt;
+
+    var turn = lerp(0, 0.4, activation((this.id / NB + 0 * t) % 1));
+
+    stroke(0);
+    strokeWeight(1);
+    noFill();
+    beginShape();
+
+    vertex(xx, yy);
+
+    for (var i = 0; i <= Nt; i++) {
+      theta +=
+        turn *
+        sin(
+          100 * noise(1000) +
+            2 * PI * (15 * noise((0.2 * this.id) / NB, 0.02 * i) + t)
+        );
+      xx += step * cos(theta);
+      yy += step * sin(theta);
+
+      var xx2 = lerp(xx, x0, (i / Nt) * (i / Nt) * (i / Nt));
+      var yy2 = lerp(
+        yy,
+        lerp(0, hei - 0, i / Nt),
+        max(i / Nt, 1 - sqrt(i / Nt))
+      );
+
+      vertex(xx2, yy2);
+    }
+    endShape();
+  };
 }
+
+var Objects = [];
+var NB = 100;
+
+function mousePressed() {
+  curSeed = floor(random() * 10000);
+  noiseSeed(curSeed);
+  console.log(curSeed);
+}
+
 function draw() {
-  background(255, 50);
-  fill(0);
-  for (let p = 0; p < points.length; p += 1) {
-    circle(points[p].x, points[p].y, 5);
-    // move the point
-    points[p].x += points[p].vx;
-    points[p].y += points[p].vy;
+  background(255);
 
-    // reverse direction if point is outside the canvas area
-    if (points[p].x > sketchWidth || points[p].x < 0) {
-      points[p].vx *= -1;
-    }
-    if (points[p].y > sketchHeight || points[p].y < 0) {
-      points[p].vy *= -1;
-    }
+  var t = (frame_count % NB_FRAMES) / NB_FRAMES;
+
+  for (var i = 0; i < NB; i++) Objects[i].draw();
+
+  noStroke();
+  fill(255);
+  //text("seed : " + curSeed, 10, 10);
+
+  frame_count++;
+  if (frame_count <= 100 && frame_count > 80) {
+  }
+
+  //////////////////////////////////////EXPORT
+}
+
+function keyReleased() {
+  if (keyCode === LEFT_ARROW) {
+    save("mySVG.png");
+    print("saved svg");
   }
 }
