@@ -18,12 +18,18 @@ function setup() {
   //fill(255, 204);
 
   // create sliders
-  rslider = createSlider(0, 255, 100);
+  rslider = createSlider(0, 255, 0);
   rslider.position(5, 410);
   gslider = createSlider(0, 255, 0);
   gslider.position(5, 430);
-  bslider = createSlider(0, 255, 255);
+  bslider = createSlider(0, 255, 0);
   bslider.position(5, 450);
+
+  // fill("black");
+  // background(r, g, b);
+  // text("red", rslider.x * 2 + rslider.width, 355);
+  // text("green", gslider.x * 2 + gslider.width, 375);
+  // text("blue", bslider.x * 2 + bslider.width, 395);
 
   for (let i = 0; i < numBalls; i++) {
     balls[i] = new Ball(
@@ -41,11 +47,13 @@ function draw() {
   const g = gslider.value();
   const b = bslider.value();
 
-  fill("wite");
+  fill("black");
   background(r, g, b);
-  text("red", rslider.x * 2 + rslider.width, 355);
-  text("green", gslider.x * 2 + gslider.width, 375);
-  text("blue", bslider.x * 2 + bslider.width, 395);
+
+  // print text
+  text("R: " + r, 150, 25);
+  text("G: " + g, 150, 45);
+  text("B: " + b, 150, 65);
 
   fill(240);
   noStroke();
