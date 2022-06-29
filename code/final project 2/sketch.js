@@ -1,17 +1,13 @@
+// INSPIRATION
+
 var particles_a = [];
 var particles_b = [];
 var particles_c = [];
 var nums = 200;
-var noiseScale = 3000;
-
-let img;
-
-function preload() {
-  img = loadImage("Maske_3000.png");
-}
+var noiseScale = 800;
 
 function setup() {
-  createCanvas(3000, 3000);
+  createCanvas(windowWidth, windowHeight);
   background(255);
   for (var i = 0; i < nums; i++) {
     particles_a[i] = new Particle(random(0, width), random(0, height));
@@ -27,22 +23,21 @@ function draw() {
     var radius = map(i, 0, nums, 1, 2);
     var alpha = map(i, 0, nums, 0, 250);
 
-    fill(190, alpha);
+    fill(255, 128, 0, alpha);
     particles_a[i].move();
     particles_a[i].display(radius);
     particles_a[i].checkEdge();
 
-    fill(80, alpha);
+    fill(204, 0, 102, alpha);
     particles_b[i].move();
     particles_b[i].display(radius);
     particles_b[i].checkEdge();
 
-    fill(235, alpha);
+    fill(255, 204, 204, alpha);
     particles_c[i].move();
     particles_c[i].display(radius);
     particles_c[i].checkEdge();
   }
-  image(img, 0, 0);
 }
 
 function Particle(x, y) {
@@ -78,7 +73,4 @@ function Particle(x, y) {
   this.display = function (r) {
     ellipse(this.pos.x, this.pos.y, r, r);
   };
-}
-function keyReleased() {
-  save();
 }
