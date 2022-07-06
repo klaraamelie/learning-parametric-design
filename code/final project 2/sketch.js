@@ -4,7 +4,7 @@ var particles_a = [];
 var particles_b = [];
 var particles_c = [];
 var nums = 200;
-var noiseScale = 800;
+var noiseScale = 2000;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -73,4 +73,7 @@ function Particle(x, y) {
   this.display = function (r) {
     ellipse(this.pos.x, this.pos.y, r, r);
   };
+}
+function keyReleased() {
+  save();
 }
